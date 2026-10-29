@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DevNext – Learn. Code. Earn Diamonds. Grow.</title>
+<meta name="description" content="DevNext is a free programming e-learning portfolio demo with 21 free courses, 12 premium courses, quizzes and a diamond reward system.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%236d28d9'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%2322d3ee' font-family='sans-serif' font-weight='bold'%3EDN%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#0a1128;--p:#7c3aed;--c:#22d3ee;--t:#f1f5f9;--m:#94a3b8;--g:rgba(255,255,255,.07);--b:rgba(255,255,255,.14)}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+body{background:radial-gradient(circle at 15% 0,#2e1065 0,transparent 45%),radial-gradient(circle at 90% 20%,#0e4a63 0,transparent 40%),var(--bg);color:var(--t);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0}
+:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+.glass{background:var(--g);border:1px solid var(--b);backdrop-filter:blur(14px);border-radius:16px;padding:16px}
+.btn{background:linear-gradient(135deg,var(--p),#0891b2);padding:10px 18px;border-radius:12px;font-weight:600;box-shadow:0 0 18px rgba(124,58,237,.45)}
+.btn.o{background:var(--g);border:1px solid var(--b);box-shadow:none}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+nav{position:sticky;top:0;z-index:20;display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 16px;background:rgba(10,17,40,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--b)}
+nav .logo{font-weight:800;font-size:1.3rem;margin-right:auto;background:linear-gradient(90deg,var(--c),#c4b5fd);-webkit-background-clip:text;color:transparent;background-clip:text}
+nav button{background:none;padding:8px 10px;border-radius:10px}nav button:hover{background:var(--g)}
+.dia{color:var(--c);font-weight:700}
+main{max-width:1100px;margin:auto;padding:16px}
+h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.1}h2{margin:18px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.tag{font-size:.75rem;padding:2px 9px;border-radius:99px;background:rgba(34,211,238,.15);color:var(--c);margin-right:4px}
+.tag.pr{background:rgba(124,58,237,.3);color:#ddd6fe}
+.bar{height:8px;border-radius:9px;background:var(--b);overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--c));transition:width .5s}
+pre{background:#050a1c;border:1px solid var(--b);border-radius:12px;padding:12px;overflow-x:auto;font:13px/1.5 ui-monospace,Menlo,monospace}
+.k{color:#c4b5fd}.s{color:#86efac}.n{color:#fcd34d}
+input,select{background:rgba(0,0,0,.3);border:1px solid var(--b);border-radius:10px;padding:10px;width:100%}
+label{display:block;margin:10px 0 4px;font-size:.9rem;color:var(--m)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:0 0 auto}.row input,.row select{flex:1 1 140px}
+.side{display:flex;flex-direction:column;gap:6px}.side button{text-align:left;background:var(--g);padding:9px;border-radius:10px}.side button.on{outline:2px solid var(--c)}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:14px}@media(max-width:760px){.layout{grid-template-columns:1fr}}
+.opt{display:block;width:100%;text-align:left;background:var(--g);border:1px solid var(--b);padding:10px;border-radius:10px;margin:6px 0}
+.opt.ok{border-color:#4ade80;background:rgba(74,222,128,.15)}.opt.no{border-color:#f87171;background:rgba(248,113,113,.15)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:50;padding:12px;overflow:auto}
+.modal>.glass{background:#111a3a;max-width:440px;width:100%;max-height:96vh;overflow:auto}
+#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:99;display:flex;flex-direction:column;gap:6px;width:min(92vw,380px)}
+#toast div{background:#1e293b;border:1px solid var(--c);padding:10px 14px;border-radius:12px;animation:pop .3s}
+@keyframes pop{from{transform:translateY(14px);opacity:0}}
+@keyframes glow{50%{text-shadow:0 0 30px var(--c);transform:scale(1.15)}}
+.gem{display:inline-block;font-size:4rem;animation:glow 1.4s infinite}
+#welcome{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:var(--bg);transition:opacity .6s,transform .6s}
+#welcome.out{opacity:0;transform:scale(1.06);pointer-events:none}
+.sk{height:90px;border-radius:16px;background:linear-gradient(90deg,var(--g),var(--b),var(--g));background-size:200%;animation:sh 1.2s infinite}@keyframes sh{to{background-position:-200%}}
+.stat{text-align:center}.stat b{font-size:1.8rem;display:block}
+footer{text-align:center;color:var(--m);padding:24px;font-size:.85rem}
+.demo{font-size:.75rem;color:#fcd34d}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+canvas#cf{position:fixed;inset:0;pointer-events:none;z-index:98}
+</style></head><body>
+<div id="welcome"><div class="gem">💎</div><h1>Welcome to DevNext</h1><p style="color:var(--m);margin:10px 0 22px">Learn. Code. Earn Diamonds. Grow.</p><button class="btn" id="enter">Enter DevNext</button><p class="demo" style="margin-top:16px">Portfolio demo by Joshna · data stays in your browser</p></div>
+<canvas id="cf"></canvas><div id="toast" role="status" aria-live="polite"></div>
+<nav aria-label="Main"><span class="logo">💎 DevNext</span>
+<button onclick="go('home')">Courses</button><button onclick="go('dash')">Dashboard</button><button onclick="go('buys')">My Purchases</button>
+<span class="dia" id="navd" title="Diamond balance"></span>
+<button onclick="notesUI()" aria-label="Notifications">🔔</button><button id=admb style="display:none" onclick="go('adm')">Admin</button><button onclick="audioUI()" aria-label="Audio settings">🔊</button>
+<button id="authb" class="btn" onclick="U?logout():authUI()">Log in</button></nav>
+<main id="app"></main>
+<footer>DevNext · built by Joshna · Demo only: authentication, payments and Google Sign-In are simulated in this static file.</footer>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}};
+/* ---------- Course data ---------- */
+const F=[
+["Python","Beginner",'name = "DevNext"\nprint("Hello,", name)',"Hello, DevNext","Which keyword defines a function in Python?",["def","func","function"],0],
+["Java","Intermediate",'public class Main {\n  public static void main(String[] a){\n    System.out.println("Hello");\n  }\n}',"Hello","Which method starts a Java program?",["start()","main()","run()"],1],
+["C","Intermediate",'#include <stdio.h>\nint main(){ printf("Hello\\n"); return 0; }',"Hello","Which header provides printf?",["stdio.h","stdlib.h","math.h"],0],
+["C++","Intermediate",'#include <iostream>\nint main(){ std::cout << "Hello"; }',"Hello","Which object prints to the console?",["cin","cout","print"],1],
+["HTML","Beginner",'<h1>Hello</h1>\n<p>My first page</p>',"A heading Hello and a paragraph","Which tag creates a link?",["<a>","<link>","<href>"],0],
+["CSS","Beginner",'h1 { color: tomato; }','Every h1 turns tomato red',"Which property changes text color?",["font-color","color","text-style"],1],
+["JavaScript","Beginner",'const nums=[1,2,3];\nconsole.log(nums.map(n=>n*2));',"[ 2, 4, 6 ]","Which keyword declares a constant?",["var","let","const"],2],
+["SQL","Beginner","SELECT name FROM students WHERE age > 18;","Names of students older than 18","Which clause filters rows?",["WHERE","ORDER","GROUP"],0],
+["PHP","Intermediate",'<?php echo "Hello"; ?>',"Hello","PHP variables start with…",["$","@","#"],0],
+["Ruby","Beginner",'puts "Hello"',"Hello","Which method prints a line in Ruby?",["echo","puts","say"],1],
+["C#","Intermediate",'Console.WriteLine("Hello");',"Hello","C# runs on which platform?",[".NET","JVM","Node"],0],
+["Kotlin","Intermediate",'fun main(){ println("Hello") }',"Hello","Which keyword declares an immutable value?",["val","var","let"],0],
+["Swift","Intermediate",'let name = "Dev"\nprint("Hi \\(name)")',"Hi Dev","Which keyword makes a constant?",["let","const","final"],0],
+["TypeScript","Intermediate",'let n: number = 5;\nconsole.log(n);',"5","TypeScript adds what to JavaScript?",["Static types","A new DOM","Threads"],0],
+["Go","Intermediate",'package main\nimport "fmt"\nfunc main(){ fmt.Println("Hello") }',"Hello","Which package prints text in Go?",["fmt","io","os"],0],
+["Rust","Advanced",'fn main(){ println!("Hello"); }',"Hello","Which tool builds Rust projects?",["cargo","npm","pip"],0],
+["R Programming","Beginner",'x <- c(1,2,3)\nmean(x)',"[1] 2","Which operator assigns values in R?",["<-","=>","::"],0],
+["Dart","Intermediate",'void main(){ print("Hello"); }',"Hello","Dart powers which UI toolkit?",["Flutter","React","Vue"],0],
+["Scala","Advanced",'object Main extends App { println("Hello") }',"Hello","Scala runs on the…",["JVM","CLR","BEAM"],0],
+["Bash Scripting","Beginner",'#!/bin/bash\necho "Hello"',"Hello","Which line starts a bash script?",["#!/bin/bash","<bash>","import bash"],0],
+["MATLAB","Advanced",'A = [1 2; 3 4];\ndisp(A*2)',"2 4\n6 8","MATLAB stands for…",["Matrix Laboratory","Math Lab","Map Table"],0]];
+const P=[
+["Full Stack Web Development","HTML/CSS/JS · Node & Express · Databases · Deploy a full app","Which HTTP verb creates a resource?",["POST","GET","TRACE"],0],
+["Artificial Intelligence","Search · Knowledge · Agents · Ethics","An AI agent acts based on…",["Perceptions","Only rules","Random"],0],
+["Machine Learning","Regression · Classification · Evaluation · Projects","Overfitting means the model…",["Memorizes training data","Is too simple","Has no data"],0],
+["Data Science","Pandas · Visualization · Statistics · Case studies","Which library handles tables in Python?",["pandas","flask","turtle"],0],
+["Cybersecurity","Threats · Cryptography · Web security · Incident response","What does hashing provide?",["One-way fingerprint","Reversible encryption","Compression"],0],
+["Cloud Computing","IaaS/PaaS/SaaS · Storage · Serverless · Cost","Which is IaaS?",["Virtual machines","Email app","Word processor"],0],
+["Big Data Analytics","Hadoop · Spark · Pipelines · Dashboards","Spark is mainly used for…",["Distributed processing","Image editing","Gaming"],0],
+["Mobile App Development","Layouts · State · APIs · Publishing","Which is cross-platform?",["Flutter","Xcode only","COBOL"],0],
+["Blockchain Development","Ledgers · Smart contracts · dApps · Security","Smart contracts are…",["Self-executing code","Paper deals","Emails"],0],
+["DevOps","Git · CI/CD · Containers · Monitoring","Docker packages apps in…",["Containers","Spreadsheets","Cables"],0],
+["Deep Learning","Neural nets · CNNs · RNNs · Transformers","Backpropagation updates…",["Weights","Pixels","Servers"],0],
+["UI/UX Design","Research · Wireframes · Prototypes · Usability tests","A wireframe is a…",["Low-fidelity layout","Database","Compiler"],0]];
+const C=[
+...F.map((r,i)=>({id:'f'+i,name:r[0],lvl:r[1],free:1,lessons:[
+{t:'Getting started with '+r[0],x:'In this lesson you read a first real '+r[0]+' program, predict what it prints, and answer a check question. Complete the quiz to unlock completion.',code:r[2],out:r[3],q:r[4],o:r[5],a:r[6]}]})),
+...P.map((r,i)=>({id:'p'+i,name:r[0],lvl:'Advanced',free:0,syl:r[1].split(' · '),lessons:[
+{t:'Module 1 project kickoff',x:'Premium syllabus: '+r[1]+'. Each module ends with a project and a quiz.',q:r[2],o:r[3],a:r[4]}]}))];
+const lang={};(LS('dn_custom')||[]).forEach(c=>C.push(c));const PATHS={Web:['HTML','CSS','JavaScript','TypeScript','PHP','Full Stack Web Development'],Backend:['Python','Java','Go','SQL','C#','Ruby','DevOps'],Mobile:['Kotlin','Swift','Dart','Mobile App Development'],Systems:['C','C++','Rust','Bash Scripting']};
+/* ---------- State ---------- */
+let users=LS('dn_users')||{},U=LS('dn_sess'),cur={c:null,l:0,done:{}};
+const A=Object.assign({sound:1,voice:1,vol:.6},LS('dn_aud')||{});
+const save=()=>{LS('dn_users',users);render(nav)};
+const me=()=>U?users[U]:null;
+const hash=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('dn:'+s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const mk=(name,h)=>({name,hash:h,prog:{},earned:[],spent:0,unl:[],buys:[],hist:[],act:[]});
+(async()=>{if(!users['demo@devnext.dev']){users['demo@devnext.dev']=mk('Demo Student',await hash('Demo@1234'));LS('dn_users',users)}if(!users['admin@devnext.dev']){users['admin@devnext.dev']=Object.assign(mk('Instructor Admin',await hash('Admin@1234')),{role:'admin'});LS('dn_users',users)}})();
+const bal=u=>u.earned.length-u.spent;
+function render(f){f&&f()}
+/* ---------- Audio ---------- */
+let ac;function beep(f,d=.15,t='sine'){if(!A.sound)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.value=f;g.gain.value=A.vol*.2;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
+const chime=()=>[523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,.2),i*120));
+function say(t){if(!A.voice||!('speechSynthesis' in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.volume=A.vol;speechSynthesis.speak(u)}catch(e){}}
+const nm=()=>me()?me().name.split(' ')[0]:'';
+const welcomeSay=()=>say(me()?`Welcome back, ${nm()}! Ready to continue your coding journey?`:"Welcome to DevNext! Your journey to becoming a great programmer starts here. Let's learn, code, and grow together!");
+function toast(m){const d=document.createElement('div');d.textContent=m;$('#toast').append(d);setTimeout(()=>d.remove(),3500)}
+function confetti(){const c=$('#cf'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;const p=Array.from({length:120},()=>({x:Math.random()*c.width,y:-20,v:2+Math.random()*4,r:3+Math.random()*5,h:Math.random()*360}));let n=0;(function f(){x.clearRect(0,0,c.width,c.height);p.forEach(q=>{q.y+=q.v;q.x+=Math.sin(q.y/20);x.fillStyle=`hsl(${q.h},90%,60%)`;x.fillRect(q.x,q.y,q.r,q.r)});if(++n<180)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})()}
+function audioUI(){modal(`<h2>Audio</h2><label><input type=checkbox id=as ${A.sound?'checked':''} style="width:auto"> Sound effects</label><label><input type=checkbox id=av ${A.voice?'checked':''} style="width:auto"> Voice</label><label>Volume</label><input type=range id=avol min=0 max=1 step=.1 value=${A.vol}><div class=row style="margin-top:12px"><button class="btn o" onclick="welcomeSay()">Replay welcome voice</button><button class=btn onclick="aSave()">Save</button></div>${'speechSynthesis' in window?'':'<p class=demo>Voice is not supported in this browser.</p>'}`)}
+function aSave(){A.sound=$('#as').checked?1:0;A.voice=$('#av').checked?1:0;A.vol=+$('#avol').value;LS('dn_aud',A);closeM();toast('Audio settings saved')}
+/* ---------- Modal / nav ---------- */
+function modal(h){closeM();const m=document.createElement('div');m.className='modal';m.id='mod';m.setAttribute('role','dialog');m.setAttribute('aria-modal','true');m.innerHTML=`<div class=glass>${h}<button class="btn o" style="margin-top:12px;width:100%" onclick="closeM()">Close</button></div>`;m.onclick=e=>{if(e.target===m)closeM()};document.body.append(m);const f=m.querySelector('input,button');f&&f.focus()}
+function closeM(){const m=$('#mod');m&&m.remove()}
+function nav(){const u=me();$('#navd').textContent=u?'💎 '+bal(u):'';$('#authb').textContent=u?'Log out':'Log in';$('#admb').style.display=u&&u.role=='admin'?'':'none'}
+function go(v,id){closeM();scrollTo(0,0);({home,dash,buys,course,adm})[v](id);nav()}
+/* ---------- Auth (DEMO) ---------- */
+function authUI(mode='in'){const up=mode=='up';modal(`<h2>${up?'Create account':'Log in'}</h2><p class=demo>Demo authentication: stored in this browser only. Recruiter login: demo@devnext.dev / Demo@1234</p><form id=af novalidate>${up?'<label for=an>Full name</label><input id=an autocomplete=name>':''}<label for=ae>Email</label><input id=ae type=email autocomplete=email><label for=ap>Password (min 8 chars)</label><div class=row><input id=ap type=password autocomplete=${up?'new':'current'}-password><button type=button class="btn o" onclick="const i=$('#ap');i.type=i.type=='password'?'text':'password'">Show/Hide</button></div><p id=ae2 role=alert style="color:#f87171;min-height:1.4em"></p><button class=btn style="width:100%">${up?'Sign up':'Log in'}</button></form><div id=gbox style="margin-top:10px"></div><div class=row style="margin-top:8px"><button class="btn o" onclick="authUI('${up?'in':'up'}')">${up?'I have an account':'Create account'}</button>${up?'':'<button class="btn o" onclick="forgot()">Forgot password?</button>'}</div>`);
+gInit();$('#af').onsubmit=async e=>{e.preventDefault();const em=$('#ae').value.trim().toLowerCase(),pw=$('#ap').value,er=t=>$('#ae2').textContent=t;
+if(!/^\S+@\S+\.\S+$/.test(em))return er('Enter a valid email address.');if(pw.length<8)return er('Password must be at least 8 characters.');
+if(up){const n=$('#an').value.trim();if(n.length<2)return er('Enter your full name.');if(users[em])return er('That email is already registered. Log in instead.');users[em]=mk(n,await hash(pw))}
+else if(!users[em]||users[em].hash!==await hash(pw))return er('Incorrect email or password.');
+U=em;LS('dn_sess',U);closeM();save();go('home');toast('Welcome, '+nm()+'!');welcomeSay()}}
+function forgot(){modal(`<h2>Reset password</h2><p class=demo>Demo: no email is sent. Enter your email and a new password to reset it locally.</p><label for=fe>Email</label><input id=fe type=email><label for=fp>New password</label><input id=fp type=password><button class=btn style="margin-top:10px;width:100%" onclick="doReset()">Reset</button>`)}
+async function doReset(){const e=$('#fe').value.trim().toLowerCase(),p=$('#fp').value;if(!users[e]||p.length<8)return toast('Use a registered email and a password of 8+ characters.');users[e].hash=await hash(p);save();authUI();toast('Password reset. Log in now.')}
+function logout(){U=null;LS('dn_sess',null);nav();go('home');toast('Logged out')}
+/* ---------- Google Sign-In (Google Identity Services) ----------
+   Paste your OAuth Web Client ID below (Google Cloud Console > APIs & Services > Credentials).
+   Add your site URL (e.g. https://yourname.github.io) under "Authorized JavaScript origins".
+   NOTE: this static version reads name/email/photo from Google's token in the browser without
+   server verification. A production app must verify the ID token on a backend. */
+const GOOGLE_CLIENT_ID='';
+function gInit(){const b=$('#gbox');if(!b)return;
+if(!GOOGLE_CLIENT_ID){b.innerHTML='<button class="btn o" style="width:100%" onclick="toast(\'Google Sign-In is not configured yet. Add a Google Client ID to GOOGLE_CLIENT_ID in the file.\')">Continue with Google — Demo Only</button>';return}
+const run=()=>{google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:gCb});google.accounts.id.renderButton(b,{theme:'outline',size:'large',text:'continue_with',width:300})};
+if(window.google&&google.accounts)return run();
+const s=document.createElement('script');s.src='https://accounts.google.com/gsi/client';s.async=true;s.onload=run;s.onerror=()=>{b.textContent='Could not load Google sign-in. Check your connection.'};document.head.append(s)}
+function gCb(r){try{const p=JSON.parse(decodeURIComponent(escape(atob(r.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')))));
+const em=String(p.email||'').toLowerCase();if(!em)throw 0;
+if(!users[em])users[em]=mk(p.name||em,'google-account');users[em].pic=p.picture||'';
+U=em;LS('dn_sess',U);closeM();save();go('home');toast('Signed in with Google as '+em);welcomeSay()}catch(e){toast('Google sign-in failed. Try again.')}}
+/* ---------- Catalog ---------- */
+let flt={q:'',t:'all',l:'all',s:'all'};
+function stat(c){const u=me(),p=u&&u.prog[c.id];if(!p)return 0;return Math.round(100*(p.done||[]).length/c.lessons.length)}
+const open_=c=>!c.free&&!(me()&&me().unl.includes(c.id));
+function home(){$('#app').innerHTML=`<section class=glass style="padding:28px 18px;margin:8px 0 14px"><h1>Learn. Code.<br>Earn Diamonds. Grow.</h1><p style="color:var(--m);margin:12px 0 16px;max-width:560px">21 free courses and 12 premium courses. Finish a free course to earn 1 💎. Redeem 20 💎 or pay a simulated ₹199 to unlock a premium one.</p><div class=row><button class=btn onclick="U?go('dash'):authUI('up')">${U?'Open dashboard':'Start free'}</button><button class="btn o" onclick="$('#cat').scrollIntoView()">Browse courses</button></div></section>
+<h2 id=cat>Courses</h2><div class=row><button class="btn o" onclick="flt.p=null;list()">All paths</button>${Object.keys(PATHS).map(k=>`<button class="btn o" onclick="flt.p='${k}';list()">${k} path</button>`).join('')}</div><div class=row><input id=sq placeholder="Search courses" aria-label="Search courses" value="${esc(flt.q)}"><select id=ft aria-label=Type><option value=all>All</option><option value=free>Free</option><option value=prem>Premium</option></select><select id=fl aria-label=Level><option value=all>Any level</option><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select><select id=fs aria-label=Status><option value=all>Any status</option><option value=done>Completed</option><option value=prog>In progress</option></select></div><div class=grid id=cg style="margin-top:14px"></div>`;
+$('#ft').value=flt.t;$('#fl').value=flt.l;$('#fs').value=flt.s;
+const g=$('#cg');g.innerHTML='<div class=sk></div>'.repeat(6);
+setTimeout(()=>{['sq','ft','fl','fs'].forEach(i=>$('#'+i).oninput=()=>{flt={p:flt.p,q:$('#sq').value,t:$('#ft').value,l:$('#fl').value,s:$('#fs').value};list()});list()},250)}
+function list(){const g=$('#cg');if(!g)return;const r=C.filter(c=>c.name.toLowerCase().includes(flt.q.toLowerCase())&&(flt.t=='all'||(flt.t=='free')==!!c.free)&&(flt.l=='all'||c.lvl==flt.l)&&(!flt.p||PATHS[flt.p].includes(c.name))&&(flt.s=='all'||(flt.s=='done'?stat(c)==100:stat(c)>0&&stat(c)<100)));
+g.innerHTML=r.length?r.map(c=>{const p=stat(c);return`<article class=glass><span class="tag ${c.free?'':'pr'}">${c.free?'Free':'Premium ₹199'}</span><span class=tag>${c.lvl}</span><h3 style="margin:8px 0">${esc(c.name)}</h3><div class=bar><i style="width:${p}%"></i></div><small style="color:var(--m)">${p}% complete</small><div style="margin-top:10px"><button class=btn onclick="go('course','${c.id}')">${c.free?(p?'Continue':'Start'):open_(c)?'View & unlock':'Open'}</button></div></article>`}).join(''):'<p class=glass style="grid-column:1/-1">No courses match these filters. Clear the search or choose "All".</p>'}
+/* ---------- Course ---------- */
+function course(id){const c=C.find(x=>x.id==id);cur.c=c;
+if(open_(c))return unlockUI(c);
+if(!U){authUI();return toast('Log in to save progress')}
+cur.l=Math.min(cur.l,c.lessons.length-1);cur.picked=null;
+const u=me(),p=u.prog[c.id]=u.prog[c.id]||{done:[]};
+$('#app').innerHTML=`<h2>${esc(c.name)} <span class=tag>${c.lvl}</span></h2><div class=bar><i style="width:${stat(c)}%"></i></div><div class=layout><div class="glass side" aria-label=Lessons>${c.syl?'<small style="color:var(--m)">Syllabus: '+c.syl.map(esc).join(' → ')+'</small>':''}${c.lessons.map((l,i)=>`<button class="${i==cur.l?'on':''}" onclick="cur.l=${i};go('course','${c.id}')">${p.done.includes(i)?'✅':'📘'} ${esc(l.t)}</button>`).join('')}</div><div class=glass id=les></div></div>`;lesson()}
+function lesson(){const c=cur.c,l=c.lessons[cur.l],p=me().prog[c.id],ok=p.quiz&&p.quiz.includes(cur.l);
+$('#les').innerHTML=`<h3>${esc(l.t)}</h3><p style="margin:8px 0">${esc(l.x)}</p>${l.code?`<textarea id=cd rows=6 spellcheck=false aria-label="Code editor (editable)" style="${TA}">${esc(l.code)}</textarea><div class=row><button class="btn o" onclick="copyC()">Copy code</button><button class=btn onclick="runC()">Run code</button></div><pre id=out hidden></pre>`:''}<h4 style="margin-top:14px">Quiz</h4><p>${esc(l.q)}</p><div id=qz>${l.o.map((o,i)=>`<button class=opt onclick="answer(${i})">${esc(o)}</button>`).join('')}</div><div class=row style="margin-top:12px"><button class="btn o" ${cur.l?'':'disabled'} onclick="cur.l--;go('course','${c.id}')">Previous</button><button class="btn o" ${cur.l<c.lessons.length-1?'':'disabled'} onclick="cur.l++;go('course','${c.id}')">Next</button><button class=btn id=mk onclick="complete()">${p.done.includes(cur.l)?'Completed ✅':'Mark as completed'}</button></div>${extra()}`;com()}
+function copyC(){navigator.clipboard?navigator.clipboard.writeText($('#cd').value).then(()=>toast('Code copied')).catch(()=>toast('Copy failed')):toast('Clipboard not supported')}
+function runC(){const l=cur.c.lessons[cur.l],o=$('#out');o.hidden=0;beep(300,.1,'square');
+if(cur.c.name=='JavaScript'){const lg=[];const f=console.log;try{const sc={log:(...a)=>lg.push(a.map(x=>typeof x=='object'?JSON.stringify(x):x).join(' '))};new Function('console',$('#cd').value)(sc);o.textContent='Real output (executed in your browser):\n'+lg.join('\n');say('Great job! Your program executed successfully!')}catch(e){o.textContent='Error: '+e.message;say('There is an error in your code. Check the message and try again.')}}
+else o.textContent='Expected output (simulated, this code was not executed):\n'+l.out}
+function answer(i){const c=cur.c,l=c.lessons[cur.l],p=me().prog[c.id];const b=[...$('#qz').children];b.forEach((x,j)=>x.className='opt'+(j==i?(i==l.a?' ok':' no'):''));
+if(i==l.a){beep(880,.2);say('Excellent! Correct answer!');p.quiz=p.quiz||[];if(!p.quiz.includes(cur.l))p.quiz.push(cur.l);toast('Correct!');LS('dn_users',users)}else{beep(200,.3,'triangle');say('Not quite! Try again!');toast('Not quite. Try again.')}}
+function complete(){const c=cur.c,u=me(),p=u.prog[c.id];if(!(p.quiz||[]).includes(cur.l))return toast('Answer the quiz correctly first.');
+if(!p.done.includes(cur.l)){p.done.push(cur.l);bump(u);u.pts=(u.pts||0)+10;u.act.unshift(`Completed "${c.lessons[cur.l].t}" (${c.name})`);u.act=u.act.slice(0,8)}
+if(p.done.length==c.lessons.length&&c.free&&!c.custom&&!u.earned.includes(c.id)){u.earned.push(c.id);u.hist.unshift({d:new Date().toLocaleString(),t:`+1 💎 ${c.name} completed`});save();celebrate(`Congratulations, ${nm()}! You have successfully completed your course! You've earned one diamond. Keep learning and shining!`,'Course complete! +1 💎')}
+else{save();toast('Lesson saved as completed')}go('course',c.id)}
+function celebrate(sp,msg){note(msg);confetti();chime();say(sp);toast(msg);modal(`<div style="text-align:center"><div class=gem>💎</div><h2>${esc(msg)}</h2></div>`)}
+/* ---------- Unlock / checkout (SIMULATED) ---------- */
+function unlockUI(c){const u=me();$('#app').innerHTML=`<div class=glass><span class="tag pr">Premium</span><h2>${esc(c.name)}</h2><p>Syllabus:</p><ul style="margin:6px 0 12px 20px">${c.syl.map(s=>'<li>'+esc(s)+'</li>').join('')}</ul><p>Price: <b>₹199</b> · lifetime access</p><div class=row style="margin-top:12px"><button class=btn onclick="U?checkout('${c.id}'):authUI()">Buy Now</button><button class="btn o" onclick="U?redeem('${c.id}'):authUI()">Unlock with 20 💎</button></div>${u?`<p style="color:var(--m);margin-top:8px">Your balance: ${bal(u)} 💎</p>`:''}</div>`}
+function checkout(id){const c=C.find(x=>x.id==id);modal(`<h2>Checkout</h2><p>${esc(c.name)} · <b>₹199</b></p><p class=demo>Simulation: no money moves and no card details are collected.</p><label for=pm>Payment method</label><select id=pm><option>UPI – Google Pay</option><option>UPI – PhonePe</option><option>UPI – Paytm</option><option>Debit/Credit Card</option><option>Net Banking</option></select><button class=btn style="margin-top:12px;width:100%" id=pay onclick="pay('${id}')">Pay ₹199 (demo)</button>`)}
+function pay(id){const c=C.find(x=>x.id==id),u=me(),m=$('#pm').value;$('#pay').disabled=true;$('#pay').textContent='Processing…';
+setTimeout(()=>{if(!u.unl.includes(id)){u.unl.push(id);u.buys.push({id:'DN'+Date.now(),c:c.name,cid:id,amt:'₹199',m,d:new Date().toLocaleString()})}save();unlocked(c)},1200)}
+function redeem(id){const c=C.find(x=>x.id==id),u=me();if(u.unl.includes(id))return go('course',id);if(bal(u)<20)return toast(`You need 20 💎 (you have ${bal(u)}). Complete free courses to earn more.`);
+u.spent+=20;u.unl.push(id);u.hist.unshift({d:new Date().toLocaleString(),t:`−20 💎 unlocked ${c.name}`});save();unlocked(c)}
+function unlocked(c){note('Unlocked: '+c.name);closeM();confetti();chime();say('Congratulations! Your premium course is now unlocked. Happy learning!');modal(`<div style="text-align:center"><div class=gem>🔓</div><h2>Payment Successful!</h2><p>${esc(c.name)} is unlocked for life.</p><button class=btn style="margin-top:10px" onclick="go('course','${c.id}')">Start course</button></div>`)}
+/* ---------- Purchases / dashboard ---------- */
+function buys(){if(!U){$('#app').innerHTML='<p class=glass>Log in to see purchases.</p>';return authUI()}const u=me();$('#app').innerHTML=`<h2>My Purchases</h2><p class=demo>Demo receipts: simulated transactions only.</p>${u.buys.length?u.buys.map((b,i)=>`<div class=glass style="margin:8px 0"><b>${esc(b.c)}</b> · ${b.amt} · ${esc(b.m)}<br><small>${b.d} · ${b.id}</small><br><button class="btn o" style="margin-top:8px" onclick="receipt(${i})">Download demo receipt</button></div>`).join(''):'<p class=glass>No purchases yet. Unlock a premium course from the catalog.</p>'}`}
+function receipt(i){const b=me().buys[i],t=`DEVNEXT DEMO RECEIPT (simulation, not a real payment)\nReceipt: ${b.id}\nStudent: ${me().name}\nCourse: ${b.c}\nAmount: ${b.amt}\nMethod: ${b.m}\nDate: ${b.d}\nAccess: Lifetime`;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/plain'}));a.download=b.id+'.txt';a.click()}
+function dash(){if(!U){$('#app').innerHTML='<p class=glass>Log in to see your dashboard.</p>';return authUI()}const u=me(),en=C.filter(c=>stat(c)>0||u.unl.includes(c.id)),dn=C.filter(c=>stat(c)==100),ip=en.filter(c=>stat(c)<100),all=Math.round(C.filter(c=>c.free&&!c.custom).reduce((s,c)=>s+stat(c),0)/21);
+const last=ip[0];
+$('#app').innerHTML=`<h2>Hi, ${esc(u.name)} 👋</h2><div class=grid>${[['Enrolled',en.length],['In progress',ip.length],['Completed',dn.length],['Earned 💎',u.earned.length],['Redeemed 💎',u.spent],['Balance 💎',bal(u)],['Points',u.pts||0],['Day streak 🔥',u.streak||0]].map(s=>`<div class="glass stat"><b>${s[1]}</b>${s[0]}</div>`).join('')}</div>
+<div class=glass style="margin:14px 0"><b>Overall free-course progress: ${all}%</b><div class=bar><i style="width:${all}%"></i></div>${last?`<button class=btn onclick="go('course','${last.id}')">Continue learning: ${esc(last.name)}</button>`:`<button class=btn onclick="go('home')">Pick a course</button>`}</div>
+<h3>Badges</h3><div class=row>${dn.length?dn.map(c=>`<button class="btn o" onclick="cert('${c.id}')">🏅 ${esc(c.name)} certificate</button>`).join(''):'<p style="color:var(--m)">Finish a course to earn your first badge.</p>'}</div>
+<h3 style="margin-top:14px">Course progress</h3>${en.length?en.map(c=>`<div>${esc(c.name)} ${stat(c)}%<div class=bar><i style="width:${stat(c)}%"></i></div></div>`).join(''):'<p style="color:var(--m)">No courses started yet.</p>'}
+<h3>Unlocked premium</h3><p>${u.unl.length?u.unl.map(i=>esc(C.find(c=>c.id==i).name)).join(', '):'None yet.'}</p>
+<h3>Diamond history</h3>${u.hist.length?u.hist.map(h=>`<div>${h.t} <small style="color:var(--m)">${h.d}</small></div>`).join(''):'<p style="color:var(--m)">No diamond activity yet.</p>'}
+<h3>Recent activity</h3>${u.act.length?u.act.map(a=>'<div>'+esc(a)+'</div>').join(''):'<p style="color:var(--m)">Nothing yet.</p>'}`}
+/* ---------- Extras: editor, exercises, community, streaks, notifications, certificates, admin ---------- */
+const TA='width:100%;font:13px ui-monospace,monospace;background:#050a1c;color:#f1f5f9;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px';
+function extra(){const c=cur.c;let h='';
+if(c.name=='JavaScript')h+=`<h4 style="margin-top:14px">Exercise (auto-graded)</h4><p>Write <code>double(n)</code> that returns n × 2.</p><textarea id=ex rows=3 spellcheck=false style="${TA}" aria-label="Exercise editor">function double(n){\n  // your code\n}</textarea><div class=row style="margin-top:6px"><button class=btn onclick="grade()">Run tests</button><button class="btn o" onclick="toast('Hint: return n * 2;')">Hint</button></div><pre id=exo hidden></pre>`;
+return h+`<h4 style="margin-top:14px">Community Q&amp;A <span class=demo>(saved in this browser only)</span></h4><div id=cm></div><div class=row><input id=ci placeholder="Ask a question or share a tip" aria-label="Comment"><button class=btn onclick="post()">Post</button></div>`}
+function grade(){const o=$('#exo');o.hidden=0;const T=[[2,4],[5,10],[0,0],[-3,-6]];try{const f=new Function($('#ex').value+';return typeof double==="function"?double:null')();if(!f)throw new Error('Define a function named double');const r=T.map(t=>f(t[0])===t[1]);o.textContent=T.map((t,i)=>(r[i]?'PASS':'FAIL')+` double(${t[0]}) expected ${t[1]}`).join('\n');
+if(r.every(Boolean)){beep(880);say('Excellent! Correct answer!');const u=me();if(!u.ex){u.ex=1;u.pts=(u.pts||0)+20;note('Exercise passed: +20 points');save()}toast('All tests passed')}else{beep(200,.3,'triangle');toast('Some tests failed. Try the hint.')}}catch(e){o.textContent='Error: '+e.message}}
+function com(){const a=(LS('dn_com')||{})[cur.c.id]||[];$('#cm').innerHTML=a.length?a.map(x=>`<div class=glass style="margin:6px 0;padding:8px"><b>${esc(x.n)}</b> <small>${x.d}</small><br>${esc(x.t)}</div>`).join(''):'<p style="color:var(--m)">No posts yet. Ask the first question.</p>'}
+function post(){const t=$('#ci').value.trim();if(!t)return toast('Write something first.');const m=LS('dn_com')||{};(m[cur.c.id]=m[cur.c.id]||[]).push({n:me().name,t,d:new Date().toLocaleDateString()});LS('dn_com',m);$('#ci').value='';com()}
+function bump(u){const d=new Date().toDateString(),y=new Date(Date.now()-864e5).toDateString();if(u.last==d)return;u.streak=u.last==y?(u.streak||0)+1:1;u.last=d;if(u.streak>1)note('🔥 '+u.streak+'-day streak!')}
+function note(t){const a=LS('dn_notes')||[];a.unshift({t,d:new Date().toLocaleString()});LS('dn_notes',a.slice(0,20))}
+function notesUI(){const a=LS('dn_notes')||[];modal(`<h2>Notifications</h2><p class=demo>In-app only. Email reminders need a backend.</p>${a.length?a.map(n=>`<div style="margin:6px 0">${esc(n.t)} <small style="color:var(--m)">${n.d}</small></div>`).join(''):'<p>No notifications yet.</p>'}`)}
+function cert(id){const c=C.find(x=>x.id==id),u=me(),t=(y,z,f,fl,x)=>`<text x="450" y="${y}" fill="${fl}" font-size="${f}" text-anchor="middle" font-family="sans-serif">${x}</text>`;const s=`<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600"><rect width="900" height="600" fill="#0a1128"/><rect x="20" y="20" width="860" height="560" fill="none" stroke="#22d3ee" stroke-width="4"/>${t(130,0,38,'#22d3ee','DevNext Certificate of Completion')}${t(240,0,22,'#fff','This certifies that')}${t(310,0,46,'#c4b5fd',esc(u.name))}${t(380,0,22,'#fff','completed '+esc(c.name))}${t(520,0,15,'#94a3b8',new Date().toLocaleDateString()+' - demo certificate, not an accredited credential')}</svg>`;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'image/svg+xml'}));a.download='DevNext-'+c.name.replace(/\W+/g,'')+'.svg';a.click()}
+function adm(){const u=me();if(!u||u.role!='admin'){$('#app').innerHTML='<p class=glass>Instructor access only. Demo login: admin@devnext.dev / Admin@1234</p>';return}
+const us=Object.values(users),cp=us.reduce((s,x)=>s+x.earned.length,0),bs=us.reduce((s,x)=>s+x.buys.length,0);
+$('#app').innerHTML=`<h2>Instructor admin <span class=demo>(demo, this browser's data)</span></h2><div class=grid>${[['Students',us.length],['Free completions',cp],['Simulated purchases',bs],['Simulated revenue','₹'+bs*199],['Courses',C.length]].map(s=>`<div class="glass stat"><b>${s[1]}</b>${s[0]}</div>`).join('')}</div><h3>Add a course</h3><div class=glass><label for=cn>Course name</label><input id=cn><label for=cl>Level</label><select id=cl><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select><label for=cx>Lesson text</label><input id=cx><label for=cq>Quiz question</label><input id=cq><label for=co>Three options, comma separated (first is correct)</label><input id=co><button class=btn style="margin-top:10px" onclick="addC()">Add course</button></div>`}
+function addC(){const n=$('#cn').value.trim(),x=$('#cx').value.trim(),q=$('#cq').value.trim(),o=$('#co').value.split(',').map(v=>v.trim()).filter(Boolean);if(!n||!x||!q||o.length!=3)return toast('Fill every field and give exactly 3 options.');
+const c={id:'x'+Date.now(),name:n,lvl:$('#cl').value,free:1,custom:1,lessons:[{t:n+' intro',x,q,o,a:0}]};C.push(c);const l=LS('dn_custom')||[];l.push(c);LS('dn_custom',l);toast('Course added (no diamond reward for custom courses)');adm()}
+/* ---------- Boot ---------- */
+$('#enter').onclick=()=>{$('#welcome').classList.add('out');beep(660,.2);welcomeSay();go('home')};
+if(!users[U])U=null;nav();
+</script></body></html>
